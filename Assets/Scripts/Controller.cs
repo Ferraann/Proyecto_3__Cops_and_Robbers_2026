@@ -47,7 +47,7 @@ public class Controller : MonoBehaviour
     }
 
     // -------------------------------------------------------------------------
-    // PASO 1: Listas de Adyacencia (Grafo No Dirigido)[cite: 1, 2]
+    // PASO 1: Listas de Adyacencia (Grafo No Dirigido)
     // -------------------------------------------------------------------------
     public void InitAdjacencyLists()
     {
@@ -68,7 +68,7 @@ public class Controller : MonoBehaviour
     }
 
     // -------------------------------------------------------------------------
-    // PASO 2: Algoritmo BFS para encontrar casillas seleccionables[cite: 1, 2]
+    // PASO 2: Algoritmo BFS para encontrar casillas seleccionables
     // -------------------------------------------------------------------------
     public void FindSelectableTiles(bool cop)
     {
@@ -120,11 +120,11 @@ public class Controller : MonoBehaviour
     }
 
     // -------------------------------------------------------------------------
-    // PASO 3: Turno del Ladrón (IA Inteligente: Maximizar distancia)[cite: 2]
+    // PASO 3: Turno del Ladrón (IA Inteligente: Maximizar distancia)
     // -------------------------------------------------------------------------
     public void RobberTurn()
     {
-        // 1. Obtenemos las casillas alcanzables por el ladrón (máximo 2 saltos)[cite: 1]
+        // 1. Obtenemos las casillas alcanzables por el ladrón (máximo 2 saltos)
         FindSelectableTiles(false);
 
         List<Tile> selectableTiles = new List<Tile>();
@@ -139,7 +139,7 @@ public class Controller : MonoBehaviour
             int cop0Tile = cops[0].GetComponent<CopMove>().currentTile;
             int cop1Tile = cops[1].GetComponent<CopMove>().currentTile;
 
-            // 3. Calculamos la distancia desde cada policía a todas las casillas del tablero[cite: 2]
+            // 3. Calculamos la distancia desde cada policía a todas las casillas del tablero
             int[] distFromCop0 = CalculateDistancesBFS(cop0Tile);
             int[] distFromCop1 = CalculateDistancesBFS(cop1Tile);
 
@@ -149,10 +149,10 @@ public class Controller : MonoBehaviour
             // 4. Evaluamos cada casilla a la que puede saltar el ladrón
             foreach (Tile candidate in selectableTiles)
             {
-                // Para esta casilla candidata, ¿cuál es la distancia al policía que tiene más cerca?[cite: 2]
+                // Para esta casilla candidata, ¿cuál es la distancia al policía que tiene más cerca?
                 int distToNearestCop = Mathf.Min(distFromCop0[candidate.numTile], distFromCop1[candidate.numTile]);
 
-                // Si esta casilla le ofrece una distancia segura mayor que la mejor que teníamos, la actualizamos[cite: 2]
+                // Si esta casilla le ofrece una distancia segura mayor que la mejor que teníamos, la actualizamos
                 if (distToNearestCop > maxMinDistance)
                 {
                     maxMinDistance = distToNearestCop;
@@ -160,7 +160,7 @@ public class Controller : MonoBehaviour
                 }
             }
 
-            // 5. Movemos el ladrón a la mejor casilla encontrada[cite: 2]
+            // 5. Movemos el ladrón a la mejor casilla encontrada
             if (bestTile != null)
             {
                 robber.GetComponent<RobberMove>().MoveToTile(bestTile);
